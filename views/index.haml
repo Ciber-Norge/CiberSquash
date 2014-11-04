@@ -9,13 +9,13 @@
     %link(rel="stylesheet" href="/css/style.css")
   %body
     .pure-menu.pure-menu-open.pure-menu-horizontal
-      %a.pure-menu-heading{:href => "#"}
+      %a.pure-menu-heading{:href => "/"}
         Ciber Squash
       %ul
         %li.pure-menu-selected
-          %a{:href => "#"} Home
+          %a{:href => "/"} Home
         %li
-          %a{:href => "#"} Admin
+          %a{:href => "/admin"} Admin
 
     .pure-g
       - (1..10).each do | i |
@@ -29,3 +29,12 @@
               Bli med
             %button.button-secondary.pure-button
               Påmeldte
+          %form.pure-form.pure-form-aligned
+            %fieldset
+              %input#name{:placeholder => "Navn", :type => "text"}
+              %button.pure-button.pure-button-primary{:type => "submit"} Send
+          %ol
+            - %w(Kyrre Njaal Nina Perry Sonia).shuffle.each do | n |
+              %li
+                =n
+            

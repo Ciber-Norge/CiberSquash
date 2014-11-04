@@ -14,3 +14,12 @@ $DB_URL = "#{ENV['CLOUDANT_URL']}"
 get '/' do
   haml :index
 end
+
+get '/admin' do
+  haml :admin
+end
+
+post '/admin' do
+  p params
+  redirect '/'
+end
