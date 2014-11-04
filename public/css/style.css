@@ -1,0 +1,15 @@
+.pure-g > div {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.l-box {
+  padding: 1em;
+  border: .1em #000 solid;
+}
+.button-success {
+  background: rgb(28, 184, 65);
+}
+.button-secondary {
+  background: rgb(66, 184, 221);
+}
