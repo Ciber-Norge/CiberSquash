@@ -16,25 +16,28 @@
           %a{:href => "/"} Home
         %li
           %a{:href => "/admin"} Admin
-
+    
     .pure-g
-      - (1..10).each do | i |
+      - get_events.each do | key, value |
         .pure-u-1.pure-u-md-1-3.l-box
+          - date = value["date"]
+          - max = value["max"]
+          - participants = value["participating"]
+          - id = value["id"]
           %p
-            Dato: 05.11.2015
+            Dato: #{date}
             %br
-            Plasser: 2/7
+            Plasser: #{participants.size}/#{max}
             %br
             %button.button-success.pure-button
               Bli med
             %button.button-secondary.pure-button
               Påmeldte
-          %form.pure-form.pure-form-aligned
+          %form.pure-form.pure-form-aligned{:action => "/blimed?id=#{id}", :method => "POST"}
             %fieldset
-              %input#name{:placeholder => "Navn", :type => "text"}
+              %input#name{:name => "name", :placeholder => "Navn", :type => "text"}
               %button.pure-button.pure-button-primary{:type => "submit"} Send
           %ol
-            - %w(Kyrre Njaal Nina Perry Sonia).shuffle.each do | n |
+            - participants.each do | p |
               %li
-                =n
-            
+                =p
