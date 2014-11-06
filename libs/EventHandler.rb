@@ -1,5 +1,3 @@
-require_relative 'DatabaseHandler'
-
 def correct_date?(date)
   date.match(/\d\d\.\d\d\.\d{4}/)
 end
