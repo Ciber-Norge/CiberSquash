@@ -21,3 +21,7 @@ end
 def get_name
   session[:info]["name"]
 end
+
+def get_uid
+  session[:uid]
+end

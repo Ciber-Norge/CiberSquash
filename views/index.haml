@@ -34,16 +34,19 @@
             Plasser: #{participants.size}/#{max}
             %br
             %form.pure-form.pure-form-aligned{:action => "/blimed?id=#{id}", :method => "POST"}
-              %button.button-success.pure-button{:type => "submit"}
-                - if participating
-                Bli med
+              - unless registered? participants, get_name
+                %button.button-success.pure-button{:name => "join", :type => "submit"}
+                  Bli med
+              - else
+                %button.button-error.pure-button{:name => "leave", :type => "submit"}
+                  Meld av
             %br
             %button.button-secondary.pure-button{:onclick => "toggleParticipators('#{key}')"}
               Se påmeldte
           %ol{:id => "participators-#{key}", :style => "display: none;"}
             - participants.each do | p |
               %li
-                = p
+                = p["name"]
 
 :javascript
   function toggleParticipators(key) {

@@ -47,9 +47,13 @@ get '/' do
 end
 
 post '/blimed' do
-  eventId = params["id"]
   if is_logged_in? then
-    add_player_to_event eventId, get_name
+    eventId = params["id"]
+    if params.has_key? "join" then
+      add_player_to_event eventId, get_uid, get_name
+    elsif params.has_key? "leave" then
+      remove_player_from_event eventId, get_uid
+    end
   end
 
   redirect '/'

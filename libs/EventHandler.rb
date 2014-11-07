@@ -20,16 +20,35 @@ def generate_event(date)
   }
 end
 
-def add_player_to_event(id, name)
+def add_player_to_event(id, uid, name)
   event = get_events[id]
 
-  unless full_or_registered?(event, name) then
-    event["participating"] << name
+  unless event_full? event or registered?(event["participating"], name) then
+    event["participating"] << { "name" => name, "id" => uid}
     update_event_to_cloudant event
   end
 end
 
-def full_or_registered?(event, id)
-  event["participating"].size >= event["max"]\
-    or event["participating"].include? name
+def remove_player_from_event(id, uid)
+  event = get_events[id]
+
+  unless event_full? event then
+    event["participating"].delete_if { | value | value["id"].match uid }
+  end
+  
+  update_event_to_cloudant event
+end
+
+def event_full?(event)
+  event["participating"].size >= event["max"]
+end
+
+def registered?(participants, name)
+  participants.each do | value |
+    if value["name"].match name then
+      return true
+    end
+  end
+
+  false
 end
