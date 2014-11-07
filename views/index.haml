@@ -2,24 +2,9 @@
 %html
   %head
     %title Ciber Squash
-    %meta{'http-equiv' => "Content-Type", :content => "text/html; charset=utf-8"}
-    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1"}
-    %link(rel="stylesheet" href="/css/pure-min.css")
-    %link(rel="stylesheet" href="/css/grids-responsive-min.css")
-    %link(rel="stylesheet" href="/css/style.css")
+    = haml :"templates/header_imports"
   %body
-    .pure-menu.pure-menu-open.pure-menu-horizontal
-      %a.pure-menu-heading{:href => "/"}
-        Ciber Squash
-      %ul
-        %li.pure-menu-selected
-          %a{:href => "/"} Home
-        - if is_admin?
-          %li
-            %a{:href => "/admin"} Admin
-        - unless is_logged_in?
-          %li
-            %a{:href => '/auth/google_oauth2'} Sign in with Google
+    = haml :"templates/nav"
     
     .pure-g
       - get_events.each do | key, value |

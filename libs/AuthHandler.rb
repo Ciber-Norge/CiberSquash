@@ -5,6 +5,7 @@ end
 def safe_urls?(path)
   [
     '/',
+    '/credit',
     '/auth/google_oauth2/callback',
     '/auth/failure'
   ].include? path

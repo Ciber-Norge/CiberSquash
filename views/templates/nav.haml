@@ -1,0 +1,14 @@
+.pure-menu.pure-menu-open.pure-menu-horizontal
+  %a.pure-menu-heading{:href => "/"}
+    Ciber Squash
+  %ul
+    %li.pure-menu
+      %a{:href => "/"} Home
+    %li.pure-menu
+      %a{:href => "/credit"} Credit
+    - if is_admin?
+      %li
+        %a{:href => "/admin"} Admin
+    - unless is_logged_in?
+      %li
+        %a{:href => '/auth/google_oauth2'} Sign in with Google

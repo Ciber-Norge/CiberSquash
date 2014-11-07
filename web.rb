@@ -35,6 +35,7 @@ use OmniAuth::Builder do
 end
 
 before do
+  # TODO add admin checks
   unless safe_urls? request.path_info
     unless has_access_token?
       redirect '/auth/google_oauth2'
@@ -44,6 +45,10 @@ end
 
 get '/' do
   haml :index
+end
+
+get '/credit' do
+  haml :credit
 end
 
 post '/blimed' do
