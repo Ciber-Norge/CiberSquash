@@ -14,11 +14,13 @@
       %ul
         %li.pure-menu-selected
           %a{:href => "/"} Home
-        %li
-          %a{:href => "/admin"} Admin
-        %li
-          %a{:href => '/auth/google_oauth2'} Sign in with Google
-    = session[:access_token]
+        - if is_admin?
+          %li
+            %a{:href => "/admin"} Admin
+        - unless is_logged_in?
+          %li
+            %a{:href => '/auth/google_oauth2'} Sign in with Google
+    
     .pure-g
       - get_events.each do | key, value |
         .pure-u-1.pure-u-md-1-3.l-box
@@ -31,15 +33,24 @@
             %br
             Plasser: #{participants.size}/#{max}
             %br
-            %button.button-success.pure-button
-              Bli med
-            %button.button-secondary.pure-button
-              Påmeldte
-          %form.pure-form.pure-form-aligned{:action => "/blimed?id=#{id}", :method => "POST"}
-            %fieldset
-              %input#name{:name => "name", :placeholder => "Navn", :type => "text"}
-              %button.pure-button.pure-button-primary{:type => "submit"} Send
-          %ol
+            %form.pure-form.pure-form-aligned{:action => "/blimed?id=#{id}", :method => "POST"}
+              %button.button-success.pure-button{:type => "submit"}
+                - if participating
+                Bli med
+            %br
+            %button.button-secondary.pure-button{:onclick => "toggleParticipators('#{key}')"}
+              Se påmeldte
+          %ol{:id => "participators-#{key}", :style => "display: none;"}
             - participants.each do | p |
               %li
-                =p
+                = p
+
+:javascript
+  function toggleParticipators(key) {
+    var elem = document.getElementById("participators-" + key);
+    if (elem.style.display === "none") {
+      elem.style.display = "";
+    } else {
+      elem.style.display = "none";
+    }
+  }

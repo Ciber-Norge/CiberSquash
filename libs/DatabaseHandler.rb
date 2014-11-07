@@ -31,8 +31,8 @@ def get_user_from_cloudant(uid)
 end
 
 def save_user_to_cloudant(uid, user)
-  jdata = get_users_json_from_cloudant["users"]
-  jdata[uid] = user
+  jdata = get_users_json_from_cloudant
+  jdata["users"][uid] = user
   save_to_cloudant(jdata.to_json)
 end
 

@@ -23,10 +23,13 @@ end
 def add_player_to_event(id, name)
   event = get_events[id]
 
-  if event["participating"].size >= event["max"] then
-    return false
+  unless full_or_registered?(event, name) then
+    event["participating"] << name
+    update_event_to_cloudant event
   end
-  
-  event["participating"] << name
-  update_event_to_cloudant event
+end
+
+def full_or_registered?(event, id)
+  event["participating"].size >= event["max"]\
+    or event["participating"].include? name
 end

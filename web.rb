@@ -47,43 +47,51 @@ get '/' do
 end
 
 post '/blimed' do
-  eventId = params[:id]
-  name = params[:name]
-  if name.length > 2 then
-    add_player_to_event eventId, name
+  eventId = params["id"]
+  if is_logged_in? then
+    add_player_to_event eventId, get_name
   end
 
   redirect '/'
 end
 
 get '/admin' do
-  haml :admin
+  if is_admin? then
+    haml :admin
+  else
+    redirect '/'
+  end
 end
 
 post '/admin' do
-	date = params[:date]
-  if correct_date? date then
-  	add_event! date
-  	redirect '/'
+  if is_admin? then
+    date = params[:date]
+    if correct_date? date then
+      add_event! date
+  	  redirect '/'
+    else
+  	  redirect '/admin'
+    end
   else
-  	redirect '/admin'
+    redirect '/'
   end
 end
 
 # Sign in
 get '/auth/:provider/callback' do
   content_type 'text/plain'
-  #begin
+  begin
     authJson = request.env['omniauth.auth']
     session[:uid] = authJson["uid"]
     session[:access_token] = authJson["credentials"]["token"]
-
-    session[:info] = get_user(session[:uid]) || save_user(session[:uid], authJson["info"])
+    # save or update user...keep that info fresh!
+    save_user(session[:uid], authJson["info"])
+    session[:info] = authJson["info"] # always use latest
     redirect '/'
-  #rescue
+  rescue
     # TODO
-   # "No Data"
-  #end
+    "No Data"
+  end
 end
 
 get '/auth/failure' do
