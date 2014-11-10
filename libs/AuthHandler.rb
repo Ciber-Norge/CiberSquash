@@ -26,3 +26,11 @@ end
 def get_uid
   session[:uid]
 end
+
+def get_info
+  session[:info]
+end
+
+def get_email
+  session[:info]["email"]
+end

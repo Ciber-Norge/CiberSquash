@@ -51,14 +51,24 @@ get '/credit' do
   haml :credit
 end
 
+get '/minside' do
+  haml :profile, :locals => {:info => session[:info]}
+end
+
+post '/minside' do
+  info = session[:info]
+  info["racket"] = params["racket"]
+  save_user(session[:uid], info)
+
+  redirect '/minside'
+end
+
 post '/blimed' do
-  if is_logged_in? then
-    eventId = params["id"]
-    if params.has_key? "join" then
-      add_player_to_event eventId, get_uid, get_name
-    elsif params.has_key? "leave" then
-      remove_player_from_event eventId, get_uid
-    end
+  eventId = params["id"]
+  if params.has_key? "join" then
+    add_player_to_event eventId, get_uid, get_info
+  elsif params.has_key? "leave" then
+    remove_player_from_event eventId, get_uid
   end
 
   redirect '/'

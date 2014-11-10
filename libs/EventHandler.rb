@@ -20,11 +20,13 @@ def generate_event(date)
   }
 end
 
-def add_player_to_event(id, uid, name)
-  event = get_events[id]
+def add_player_to_event(eventId, uid, info)
+  name = info["name"]
+  email = info["email"]
+  event = get_events[eventId]
 
   unless event_full? event or registered?(event["participating"], name) then
-    event["participating"] << { "name" => name, "id" => uid}
+    event["participating"] << { "name" => name, "id" => uid, "email" => email }
     update_event_to_cloudant event
   end
 end
