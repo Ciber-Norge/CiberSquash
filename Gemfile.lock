@@ -23,6 +23,8 @@ GEM
     omniauth (1.2.2)
       hashie (>= 1.2, < 4)
       rack (~> 1.0)
+    omniauth-facebook (2.0.0)
+      omniauth-oauth2 (~> 1.2)
     omniauth-google-oauth2 (0.2.6)
       omniauth (> 1.0)
       omniauth-oauth2 (~> 1.1)
@@ -54,6 +56,7 @@ PLATFORMS
 DEPENDENCIES
   haml (~> 4.0)
   json (~> 1.8)
+  omniauth-facebook
   omniauth-google-oauth2
   rest-client (~> 1.7)
   sinatra (~> 1.4)

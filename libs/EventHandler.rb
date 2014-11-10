@@ -1,5 +1,5 @@
 def correct_date?(date)
-  date.match(/\d\d\.\d\d\.\d{4}/)
+  date.match(/\d\d\.\d\d\.\d{4}/) if date
 end
 
 def add_event!(date)
@@ -42,10 +42,12 @@ def remove_player_from_event(id, uid)
 end
 
 def event_full?(event)
-  event["participating"].size >= event["max"]
+  event["participating"].size >= event["max"] if event
 end
 
 def registered?(participants, name)
+  if name.nil? then return false end
+    
   participants.each do | value |
     if value["name"].match name then
       return true

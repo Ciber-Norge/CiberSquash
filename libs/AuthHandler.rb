@@ -6,7 +6,9 @@ def safe_urls?(path)
   [
     '/',
     '/credit',
+    '/login',
     '/auth/google_oauth2/callback',
+    '/auth/facebook/callback',
     '/auth/failure'
   ].include? path
 end
@@ -20,7 +22,7 @@ def is_logged_in?
 end
 
 def get_name
-  session[:info]["name"]
+  session[:info]["name"] if session[:info]
 end
 
 def get_uid
@@ -32,5 +34,5 @@ def get_info
 end
 
 def get_email
-  session[:info]["email"]
+  session[:info]["email"] if session[:info]
 end

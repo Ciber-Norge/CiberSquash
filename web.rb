@@ -6,6 +6,7 @@ require 'rest_client'
 require 'securerandom'
 require 'omniauth'
 require 'omniauth-google-oauth2'
+require 'omniauth-facebook'
 
 require_relative 'libs/DatabaseHandler'
 require_relative 'libs/EventHandler'
@@ -24,6 +25,14 @@ unless GOOGLE_KEY = ENV['GOOGLE_KEY']
   raise "You must specify the GOOGLE_KEY env variable"
 end
 
+unless FACEBOOK_ID = ENV['FACEBOOK_ID']
+  raise "You must specify the FACEBOOK_ID env variable"
+end
+
+unless FACEBOOK_SECRET = ENV['FACEBOOK_SECRET']
+  raise "You must specify the FACEBOOK_SECRET env variable"
+end
+
 $DB_URL = ENV['CLOUDANT_URL'] + '/squash'
 $eventsId = '81a97d7a3192b7ea47b6f3acc37da3bd'
 $usersId = '26566edcbb3782c35347e1cea5608f2a'
@@ -32,13 +41,14 @@ use Rack::Session::Cookie, :secret => ENV['RACK_COOKIE_SECRET']
 
 use OmniAuth::Builder do
   provider :google_oauth2, ENV['GOOGLE_KEY'], ENV['GOOGLE_SECRET'], {}
+  provider :facebook, ENV['FACEBOOK_ID'], ENV['FACEBOOK_SECRET'], :scope => 'email,read_stream'
 end
 
 before do
   # TODO add admin checks
   unless safe_urls? request.path_info
     unless has_access_token?
-      redirect '/auth/google_oauth2'
+      redirect '/login'
     end
   end
 end
@@ -49,6 +59,10 @@ end
 
 get '/credit' do
   haml :credit
+end
+
+get '/login' do
+  haml :login
 end
 
 get '/minside' do
