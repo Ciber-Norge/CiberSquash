@@ -13,6 +13,10 @@ def safe_urls?(path)
   ].include? path
 end
 
+def need_to_be_admin?(path)
+  path.start_with? '/admin'
+end
+
 def is_admin?
   ENV['ADMINS'].split(';').include? session[:uid]
 end

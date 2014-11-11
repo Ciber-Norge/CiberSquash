@@ -51,6 +51,12 @@ before do
       redirect '/login'
     end
   end
+
+  if need_to_be_admin? request.path_info
+    unless is_admin?
+      redirect '/'
+    end
+  end
 end
 
 get '/' do
@@ -89,25 +95,23 @@ post '/blimed' do
 end
 
 get '/admin' do
-  if is_admin? then
-    haml :admin
-  else
-    redirect '/'
-  end
+  haml :admin
 end
 
 post '/admin' do
-  if is_admin? then
-    date = params[:date]
-    if correct_date? date then
-      add_event! date
-  	  redirect '/'
-    else
-  	  redirect '/admin'
-    end
-  else
+  date = params[:date]
+  if correct_date? date then
+    add_event! date
     redirect '/'
+  else
+    redirect '/admin'
   end
+end
+
+post '/admin/edit/:id' do
+end
+
+post '/admin/delete/:id' do
 end
 
 # Sign in
