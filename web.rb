@@ -122,12 +122,17 @@ get '/auth/:provider/callback' do
     session[:info] = authJson["info"] # always use latest
     redirect '/'
   rescue
-    # TODO
-    "No Data"
+    p "User was not logged in with request #{request}"
+    redirect '/login'
   end
 end
 
 get '/auth/failure' do
   content_type 'text/plain'
-  request.env['omniauth.auth'].to_hash.inspect rescue "No Data"
+  begin
+    request.env['omniauth.auth'].to_hash.inspect
+  rescue
+    p "User could not log in with request #{request}"
+    redirect '/login'
+  end
 end
