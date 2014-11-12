@@ -32,6 +32,10 @@ def get_users_json_from_cloudant
   JSON.parse(RestClient.get($DB_URL + "/#{$usersId}"))
 end
 
+def get_users_from_cloudant
+  get_users_json_from_cloudant["users"]
+end
+
 def get_user_from_cloudant(uid)
   get_users_json_from_cloudant["users"][uid]
 end

@@ -26,3 +26,6 @@ body {
   text-align: left;
   width: auto;
 }
+ul li a {
+  text-decoration: none;
+}

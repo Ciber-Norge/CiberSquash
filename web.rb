@@ -107,6 +107,24 @@ post '/admin' do
   redirect '/admin'
 end
 
+get '/admin/user/:id' do | id |
+  user = get_user id
+  dot = user["dot"] || 0
+
+  if params["dot"].match "inc" then
+    dot = dot + 1
+  else
+    dot = dot - 1
+  end
+
+  unless dot < 0 then
+    user["dots"] = dot
+    update_user user
+  end
+
+  redirect '/admin'
+end
+
 get '/admin/edit/:id' do | id |
   haml :editEvent, :locals => { :event => get_event(id) }
 end
@@ -147,6 +165,7 @@ get '/auth/:provider/callback' do
     session[:uid] = authJson["uid"]
     session[:access_token] = authJson["credentials"]["token"]
     # save or update user...keep that info fresh!
+    authJson["info"]["id"] = authJson["uid"]
     save_user(session[:uid], authJson["info"])
     session[:info] = authJson["info"] # always use latest
     redirect '/'
