@@ -109,7 +109,7 @@ end
 
 get '/admin/user/:id' do | id |
   user = get_user id
-  dot = user["dot"] || 0
+  dot = user["dots"] || 0
 
   if params["dot"].match "inc" then
     dot = dot + 1
