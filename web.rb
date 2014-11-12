@@ -102,16 +102,41 @@ post '/admin' do
   date = params[:date]
   if correct_date? date then
     add_event! date
-    redirect '/'
-  else
-    redirect '/admin'
   end
+
+  redirect '/admin'
 end
 
-post '/admin/edit/:id' do
+get '/admin/edit/:id' do | id |
+  haml :editEvent, :locals => { :event => get_event(id) }
 end
 
-post '/admin/delete/:id' do
+post '/admin/edit/:id' do | id |
+  # update event
+  event = get_event id
+  event["max"] = params[:max].to_i
+  date = params[:date]
+  
+  if correct_date? date then
+    event["date"] = date
+  end
+
+  update_event event
+  redirect '/admin'
+end
+
+get '/admin/edit/:eventId/remove/:uid' do | eventId, uid |
+  remove_player_from_event_admin(eventId, uid)
+  redirect '/admin/edit/' + eventId
+end
+
+get '/admin/delete/:id' do | id |
+  haml :deleteEvent, :locals => { :id => id, :date => get_event(id)["date"] }
+end
+
+post '/admin/delete/:id' do | id |
+  remove_event! id
+  redirect '/admin'
 end
 
 # Sign in

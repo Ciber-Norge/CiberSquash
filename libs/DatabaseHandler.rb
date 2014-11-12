@@ -20,6 +20,12 @@ def update_event_to_cloudant(event)
   save_to_cloudant(jdata.to_json)
 end
 
+def remove_event_from_cloudant(id)
+  jdata = get_events_json_from_cloudant
+  jdata["events"].delete id
+  save_to_cloudant(jdata.to_json)
+end
+
 #users
 private
 def get_users_json_from_cloudant

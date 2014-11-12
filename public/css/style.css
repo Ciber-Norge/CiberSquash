@@ -22,3 +22,7 @@ body {
 .button-error {
   background: rgb(202, 60, 60);
 }
+.pure-form-aligned .pure-control-group label {
+  text-align: left;
+  width: auto;
+}

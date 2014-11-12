@@ -2,6 +2,10 @@ def correct_date?(date)
   date.match(/\d\d\.\d\d\.\d{4}/) if date
 end
 
+def get_event(id)
+  get_events[id]
+end
+
 def add_event!(date)
   add_event_to_cloudant(generate_event(date))
 end
@@ -9,6 +13,10 @@ end
 def get_events
   # no cach yet
   get_events_from_cloudant
+end
+
+def remove_event!(id)
+  remove_event_from_cloudant id
 end
 
 def generate_event(date)
@@ -20,6 +28,10 @@ def generate_event(date)
   }
 end
 
+def update_event(event)
+  update_event_to_cloudant event
+end
+
 def add_player_to_event(eventId, uid, info)
   name = info["name"]
   email = info["email"]
@@ -27,8 +39,14 @@ def add_player_to_event(eventId, uid, info)
 
   unless event_full? event or registered?(event["participating"], name) then
     event["participating"] << { "name" => name, "id" => uid, "email" => email }
-    update_event_to_cloudant event
+    update_event event
   end
+end
+
+def remove_player_from_event_admin(id, uid)
+  event = get_events[id]
+  event["participating"].delete_if { | value | value["id"].match uid }
+  update_event event
 end
 
 def remove_player_from_event(id, uid)
@@ -38,7 +56,7 @@ def remove_player_from_event(id, uid)
     event["participating"].delete_if { | value | value["id"].match uid }
   end
   
-  update_event_to_cloudant event
+  update_event event
 end
 
 def event_full?(event)
