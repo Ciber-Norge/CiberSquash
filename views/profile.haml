@@ -18,4 +18,13 @@
             %button.pure-button.pure-button-primary{:type => "submit"}
               Lagre
       .pure-u-1.pure-u-md-1-3.l-box
-        Score TBA
+        Score
+        %br
+        - get_scores_for_user.each do | value |
+          - e = get_event(value["event"])
+          - p1 = get_user(value["player1"])["first_name"]
+          - s1 = value["score1"]
+          - p2 = get_user(value["player2"])["first_name"]
+          - s2 = value["score2"]
+          #{e["date"]}: #{p1} #{s1} - #{s2} #{p2} 
+          %br

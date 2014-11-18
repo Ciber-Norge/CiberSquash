@@ -13,3 +13,17 @@ end
 def get_users
 	get_users_from_cloudant
 end
+
+def get_scores_for_user
+	scores = []
+	get_events.each do | key, value |
+    value["scores"].each do | score |
+      if score["player1"].match get_uid or\
+        score["player2"].match get_uid then
+        scores << score
+      end
+    end
+		
+	end
+	scores
+end
