@@ -1,0 +1,51 @@
+!!!
+%html
+  %head
+    %title Ciber Squash
+    = haml :"templates/header_imports"
+  %body
+    = haml :"templates/nav"
+
+    .pure-g
+      .pure-u-1.pure-u-md-1-3.l-box
+        %form.pure-form.pure-form-aligned{:action => "/resultater/" + event["id"], :method => "POST"}
+          %fieldset
+            %legend Legg til resultat
+
+            .pure-control-group
+              %label{:for => "player1"} Spiller 1
+              %select{:name => "player1"}
+                %option{:value => "none"}
+                - event["participating"].each do | value |
+                  %option{:value => value["id"]}
+                    = value["name"]
+
+            .pure-control-group
+              %label{:for => "player2"} Spiller 2
+              %select{:name => "player2"}
+                %option{:value => "none"}
+                - event["participating"].each do | value |
+                  %option{:value => value["id"]}
+                    = value["name"]
+
+            .pure-control-group
+              %label{:for => "score1"} Poeng 1
+              %input#score1{:name => "score1", :placeholder => "7", :type => "number"}
+
+            .pure-control-group
+              %label{:for => "score2"} Poeng 2
+              %input#score2{:name => "score2", :placeholder => "11", :type => "number"}
+
+            .pure-control-group
+              %button.pure-button.pure-button-primary{:type => "submit"} Legg til
+
+      .pure-u-1.pure-u-md-1-3.l-box
+        - event["scores"].each do | value |
+          - p1 = get_user(value["player1"])["first_name"]
+          - s1 = value["score1"]
+          - p2 = get_user(value["player2"])["first_name"]
+          - s2 = value["score2"]
+          #{p1} #{s1} - #{s2} #{p2} 
+          %a{:href => "/resultater/" + event["id"] + "/remove/" + value["id"]}
+            Slett
+          %br

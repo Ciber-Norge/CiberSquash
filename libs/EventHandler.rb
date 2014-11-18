@@ -12,6 +12,8 @@ end
 
 def get_events
   # no cach yet
+  # store it globally and nil if 
+  # it is updated, or just update it?
   get_events_from_cloudant
 end
 
@@ -24,7 +26,8 @@ def generate_event(date)
     id: SecureRandom.uuid,
     date: date,
     max: 7,
-    participating: []
+    participating: [],
+    scores: []
   }
 end
 

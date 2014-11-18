@@ -12,6 +12,7 @@ require_relative 'libs/DatabaseHandler'
 require_relative 'libs/EventHandler'
 require_relative 'libs/UserHandler'
 require_relative 'libs/AuthHandler'
+require_relative 'libs/ScoreHandler'
 
 unless CLOUDANT_URL = ENV['CLOUDANT_URL']
   raise "You must specify the CLOUDANT_URL env variable"
@@ -36,6 +37,7 @@ end
 $DB_URL = ENV['CLOUDANT_URL'] + '/squash'
 $eventsId = '81a97d7a3192b7ea47b6f3acc37da3bd'
 $usersId = '26566edcbb3782c35347e1cea5608f2a'
+$scoresId = '206043c3f243b4fed7c70df98b295e09'
 
 use Rack::Session::Cookie, :secret => ENV['RACK_COOKIE_SECRET']
 
@@ -76,8 +78,7 @@ get '/minside' do
 end
 
 post '/minside' do
-  info = session[:info]
-  info["racket"] = params["racket"]
+  session[:info]["racket"] = params["racket"]
   save_user(session[:uid], info)
 
   redirect '/minside'
@@ -94,6 +95,27 @@ post '/blimed' do
   redirect '/'
 end
 
+get '/resultater' do
+  haml :resultater
+end
+
+get '/resultater/:id/remove/:sid' do | id, sid |
+  remove_score_from_event id, sid
+  redirect '/resultater/' + id
+end
+
+get '/resultater/:id' do | id |
+  haml :resultat, :locals => { :event => get_event(id)}
+end
+
+post '/resultater/:id' do
+  id = params["id"]
+  save_score_to_event id, params["player1"], params["score1"], params["player2"], params["score2"]
+
+  haml :resultat, :locals => { :event => get_event(id)}
+end
+
+# admin
 get '/admin' do
   haml :admin
 end
