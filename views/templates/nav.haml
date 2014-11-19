@@ -4,18 +4,18 @@
   %ul
     %li.pure-menu
       %a{:href => '/'} Home
-    %li.pure-menu
-      %a{:href => '/resultater'} Resultater
     - if is_logged_in?
+      %li.pure-menu
+        %a{:href => '/resultater'} Resultater
       %li
         %a{:href => '/minside'} Min side
-    - if is_admin?
-      %li
-        %a{:href => "/admin"} Admin
     - unless is_logged_in?
       %li
         %a{:href => '/auth/google_oauth2'} Sign in with Google
       %li
         %a{:href => '/auth/facebook'} Sign in with Facebook
+    - if is_admin?
+      %li
+        %a{:href => "/admin"} Admin
     %li.pure-menu
       %a{:href => "/credit"} Credit
