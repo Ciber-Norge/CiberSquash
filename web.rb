@@ -78,8 +78,8 @@ get '/minside' do
 end
 
 post '/minside' do
-  session[:info]["racket"] = params["racket"]
-  save_user(session[:uid], info)
+  get_info["racket"] = params["racket"]
+  save_user(session[:uid], get_info)
 
   redirect '/minside'
 end
