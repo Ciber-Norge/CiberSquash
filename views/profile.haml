@@ -20,11 +20,18 @@
       .pure-u-1.pure-u-md-1-3.l-box
         Score
         %br
-        - get_scores_for_user.each do | value |
+        - get_scores_for_users.each do | value |
           - e = get_event(value["event"])
-          - p1 = get_user(value["player1"])["first_name"]
+          - p1 = get_user_first_name(value["player1"])
           - s1 = value["score1"]
-          - p2 = get_user(value["player2"])["first_name"]
+          - p2 = get_user_first_name(value["player2"])
           - s2 = value["score2"]
-          #{e["date"]}: #{p1} #{s1} - #{s2} #{p2} 
+          - isSimple = value.has_key?("winner")
+          - if isSimple
+            - if value["winner"].match("winner1")
+              #{e["date"]}: #{p1} vant over #{p2} 
+            - else
+              #{e["date"]}: #{p2} vant over #{p1} 
+          - else
+            #{e["date"]}: #{p1} #{s1} - #{s2} #{p2}
           %br

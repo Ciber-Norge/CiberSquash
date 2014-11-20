@@ -14,7 +14,7 @@ def get_users
 	get_users_from_cloudant
 end
 
-def get_scores_for_user
+def get_scores_for_users
 	scores = []
 	get_events.each do | key, value |
     value["scores"].each do | score |
@@ -26,4 +26,9 @@ def get_scores_for_user
 		
 	end
 	scores
+end
+
+def get_user_first_name(uid)
+  user = get_user(uid)
+  user ? user["full_name"] : "ukjent"
 end
