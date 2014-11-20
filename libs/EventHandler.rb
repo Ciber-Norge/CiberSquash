@@ -17,6 +17,23 @@ def get_events
   get_events_from_cloudant
 end
 
+def get_future_events
+  now = Time.now()
+  futureEvents = {}
+  events = get_events
+  events.each do | key, value |
+    date = value["date"].split(/\./)
+    eventTime = Time.local(date[2], date[1], date[0])
+    if eventTime.year >= now.year\
+      and ((eventTime.month == now.month and eventTime.day >= now.day)\
+              or eventTime.month > now.month) then
+      futureEvents[key] = value
+    end
+  end
+
+  futureEvents
+end
+
 def remove_event!(id)
   remove_event_from_cloudant id
 end
