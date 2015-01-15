@@ -17,8 +17,9 @@
           %p
             Dato: #{date}
             %br
-            Tidspunk: #{timestamp}
-            %br
+            - if timestamp
+              Tidspunkt: #{timestamp}
+              %br
             Plasser: #{participants.size}/#{max}
             %br
             %form.pure-form.pure-form-aligned{:action => "/blimed?id=#{id}", :method => "POST"}
