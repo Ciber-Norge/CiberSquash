@@ -12,9 +12,12 @@
           - date = value["date"]
           - max = value["max"]
           - participants = value["participating"]
+          - eventTimestamp = value["eventTimestamp"]
           - id = value["id"]
           %p
             Dato: #{date}
+            %br
+            Tidspunk: #{eventTimestamp}
             %br
             Plasser: #{participants.size}/#{max}
             %br
