@@ -12,7 +12,7 @@ end
 
 def get_events
   # no cach yet
-  # store it globally and nil if 
+  # store it globally and nil if
   # it is updated, or just update it?
   get_events_from_cloudant
 end
@@ -42,7 +42,8 @@ def generate_event(date)
   {
     id: SecureRandom.uuid,
     date: date,
-    max: 7,
+    max: 9,
+    timestamp: "18:00",
     participating: [],
     scores: []
   }
@@ -75,7 +76,7 @@ def remove_player_from_event(id, uid)
   unless event_full? event then
     event["participating"].delete_if { | value | value["id"].match uid }
   end
-  
+
   update_event event
 end
 
@@ -85,7 +86,7 @@ end
 
 def registered?(participants, name)
   if name.nil? then return false end
-    
+
   participants.each do | value |
     if value["name"].match name then
       return true
