@@ -12,10 +12,14 @@
           - date = value["date"]
           - max = value["max"]
           - participants = value["participating"]
+          - timestamp = value["timestamp"]
           - id = value["id"]
           %p
             Dato: #{date}
             %br
+            - if timestamp
+              Tidspunkt: #{timestamp}
+              %br
             Plasser: #{participants.size}/#{max}
             %br
             %form.pure-form.pure-form-aligned{:action => "/blimed?id=#{id}", :method => "POST"}
