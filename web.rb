@@ -88,7 +88,7 @@ end
 post '/blimed' do
   eventId = params["id"]
   if params.has_key? "join" then
-    add_player_to_event eventId, get_uid, get_info
+    add_player_to_event eventId, get_uid, get_user
   elsif params.has_key? "leave" then
     remove_player_from_event eventId, get_uid
   end
