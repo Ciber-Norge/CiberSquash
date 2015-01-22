@@ -63,10 +63,11 @@ end
 def add_player_to_event(eventId, uid, info)
   name = info["name"]
   email = info["email"]
+  image = info["image"]
   event = get_events[eventId]
 
   unless event_full? event or registered?(event["participating"], name) then
-    event["participating"] << { "name" => name, "id" => uid, "email" => email }
+    event["participating"] << { "name" => name, "id" => uid, "email" => email, "image" => image }
     update_event event
   end
 end
