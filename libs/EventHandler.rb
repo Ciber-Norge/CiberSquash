@@ -80,9 +80,9 @@ end
 def remove_player_from_event(id, uid)
   event = get_events[id]
 
-  unless event_full? event then
+  #unless event_full? event then
     event["participating"].delete_if { | value | value["id"].match uid }
-  end
+  #end
   
   update_event event
 end
