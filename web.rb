@@ -78,8 +78,9 @@ get '/minside' do
 end
 
 post '/minside' do
-  #get_info["racket"] = params["racket"]
-  #save_user_info(session[:uid], get_info)
+  info = get_user_info get_uid
+  info["racket"] = params["racket"]
+  save_user_info(session[:uid], info)
 
   redirect '/minside'
 end
