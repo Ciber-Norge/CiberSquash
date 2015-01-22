@@ -46,6 +46,26 @@ def save_user_to_cloudant(uid, user)
   save_to_cloudant(jdata.to_json)
 end
 
+#userinfo
+private
+def get_users_info_json_from_cloudant
+  JSON.parse(RestClient.get($DB_URL + "/#{$userInfoId}"))
+end
+
+def get_users_info_from_cloudant
+  get_users_info_json_from_cloudant["user_info"]
+end
+
+def get_user_info_from_cloudant(uid)
+  get_users_info_json_from_cloudant["user_info"][uid]
+end
+
+def save_user_info_to_cloudant(uid, user)
+  jdata = get_users_info_json_from_cloudant
+  jdata["user_info"][uid] = user
+  save_to_cloudant(jdata.to_json)
+end
+
 private
 def save_to_cloudant(json)
   begin

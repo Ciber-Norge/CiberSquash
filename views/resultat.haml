@@ -62,9 +62,9 @@
 
       .pure-u-1.pure-u-md-1-3.l-box
         - event["scores"].each do | value |
-          - p1 = get_user(value["player1"])["first_name"]
+          - p1 = get_user_by(value["player1"])["first_name"]
           - s1 = value["score1"]
-          - p2 = get_user(value["player2"])["first_name"]
+          - p2 = get_user_by(value["player2"])["first_name"]
           - s2 = value["score2"]
           - isSimple = value.has_key?("winner")
           - if isSimple

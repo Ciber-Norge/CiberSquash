@@ -37,7 +37,7 @@ end
 $DB_URL = ENV['CLOUDANT_URL'] + '/squash'
 $eventsId = '81a97d7a3192b7ea47b6f3acc37da3bd'
 $usersId = '26566edcbb3782c35347e1cea5608f2a'
-$scoresId = '206043c3f243b4fed7c70df98b295e09'
+$userInfoId = '206043c3f243b4fed7c70df98b295e09'
 
 use Rack::Session::Cookie, :secret => ENV['RACK_COOKIE_SECRET']
 
@@ -74,12 +74,12 @@ get '/login' do
 end
 
 get '/minside' do
-  haml :profile, :locals => {:info => session[:info]}
+  haml :profile, :locals => {:user => get_user, :info => get_user_info(get_uid)}
 end
 
 post '/minside' do
-  get_info["racket"] = params["racket"]
-  save_user(session[:uid], get_info)
+  #get_info["racket"] = params["racket"]
+  #save_user_info(session[:uid], get_info)
 
   redirect '/minside'
 end
@@ -135,7 +135,7 @@ post '/admin' do
 end
 
 get '/admin/user/:id' do | id |
-  user = get_user id
+  user = get_user_by id
   dot = user["dots"] || 0
 
   if params["dot"].match "inc" then
@@ -194,7 +194,8 @@ get '/auth/:provider/callback' do
     # save or update user...keep that info fresh!
     authJson["info"]["id"] = authJson["uid"]
     save_user(session[:uid], authJson["info"])
-    session[:info] = authJson["info"] # always use latest
+    add_user_info session[:uid]
+    session[:user] = authJson["info"] # always use latest
     redirect '/'
   rescue
     p "User was not logged in with request #{request}"

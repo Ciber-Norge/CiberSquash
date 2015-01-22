@@ -26,17 +26,17 @@ def is_logged_in?
 end
 
 def get_name
-  session[:info]["name"] if session[:info]
+  session[:user]["name"] if session[:user]
 end
 
 def get_uid
   session[:uid]
 end
 
-def get_info
-  session[:info]
+def get_user
+  session[:user]
 end
 
 def get_email
-  session[:info]["email"] if session[:info]
+  session[:user]["email"] if session[:user]
 end

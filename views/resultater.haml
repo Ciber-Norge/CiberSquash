@@ -12,5 +12,5 @@
           %legend Registrere resultater
           - get_events.each do | key, value |
             %p
-              Event: #{value["date"]} - 
+              Event: #{value["date"].strftime('%d.%m.%Y')} - 
               %a{:href => "/resultater/" + key} Legg til resultater
