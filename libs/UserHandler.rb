@@ -14,18 +14,50 @@ def get_users
   get_users_from_cloudant
 end
 
-def get_scores_for_users
+def get_scores_for_user(uid)
+  users = get_users
   scores = []
-  get_events.each do | key, value |
-    value["scores"].each do | score |
-      if score["player1"].match get_uid or\
-        score["player2"].match get_uid then
-        scores << score
+  wins = 0
+  get_events.each do | key, event |
+    event["scores"].each do | score |
+      if score["player1"].match uid or\
+        score["player2"].match uid then
+        data = {
+          "date" => event["date"],
+          "p1" => users[score["player1"]]["first_name"],
+          "p2" => users[score["player2"]]["first_name"]
+        }
+        if score.has_key?("winner") then
+          data["simple"] = true
+          data["winner"] = score["winner"]
+          if score["winner"].match("winner1")\
+            and score["player1"] == uid then
+            wins = wins + 1
+          elsif score["winner"].match("winner2")\
+            and score["player2"] == uid then
+            wins = wins + 1
+          end
+        else
+          data["simple"] = false
+          data["s1"] = score["score1"]
+          data["s2"] = score["score2"]
+          if score["player1"] == uid\
+          and score["score1"].to_i > score["score2"].to_i then
+            wins = wins + 1
+          elsif score["player2"] == uid\
+            and score["score1"].to_i < score["score2"].to_i then
+            wins = wins + 1
+          end
+        end
+        scores << data
       end
     end
-    
   end
-  scores
+  
+  {
+    "results" => scores,
+    "wins" => wins
+  }
 end
 
 def get_user_first_name(uid)

@@ -21,20 +21,15 @@
             %button.pure-button.pure-button-primary{:type => "submit"}
               Lagre
       .pure-u-1.pure-u-md-1-3.l-box
-        Score
+        Score (#{scores["wins"]}/#{scores["results"].size})
         %br
-        -# get_scores_for_users.each do | value |
-          - e = get_event(value["event"])
-          - p1 = get_user_first_name(value["player1"])
-          - s1 = value["score1"]
-          - p2 = get_user_first_name(value["player2"])
-          - s2 = value["score2"]
-          - isSimple = value.has_key?("winner")
-          - if isSimple
-            - if value["winner"].match("winner1")
-              #{e["date"]}: #{p1} vant over #{p2} 
+        - scores["results"].each do | score |
+          - date = score["date"].strftime('%d.%m.%Y')
+          - if score["simple"]
+            - if score["winner"].match("winner1")
+              #{date}: #{score["p1"]} vant over #{score["p2"]}
             - else
-              #{e["date"]}: #{p2} vant over #{p1} 
+              #{date}: #{score["p2"]} vant over #{score["p1"]}
           - else
-            #{e["date"]}: #{p1} #{s1} - #{s2} #{p2}
+            #{date}: #{score["p1"]} #{score["s1"]} - #{score["s2"]} #{score["p2"]}
           %br

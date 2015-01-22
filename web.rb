@@ -74,7 +74,7 @@ get '/login' do
 end
 
 get '/minside' do
-  haml :profile, :locals => {:user => get_user, :info => get_user_info(get_uid)}
+  haml :profile, :locals => {:user => get_user, :info => get_user_info(get_uid), :scores => get_scores_for_user(get_uid)}
 end
 
 post '/minside' do
@@ -106,7 +106,7 @@ get '/resultater/:id/remove/:sid' do | id, sid |
 end
 
 get '/resultater/:id' do | id |
-  haml :resultat, :locals => { :event => get_event(id)}
+  haml :resultat, :locals => { :event => get_event(id), :users => get_users}
 end
 
 post '/resultater/:id' do
