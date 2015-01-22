@@ -3,6 +3,7 @@
   %head
     %title Ciber Squash
     = haml :"templates/header_imports"
+    %link(rel="stylesheet" href="/css/pikaday.css")
   %body
     = haml :"templates/nav"
   
@@ -14,7 +15,7 @@
 
             .pure-control-group
               %label{:for => "date"} Dato
-              %input#date{:name => "date", :placeholder => "05.11.2014", :type => "text", :value => event["date"]}
+              %input#date{:name => "date", :placeholder => "05.11.2014", :type => "text", :value => event["date"].strftime('%d.%m.%Y')}
 
             .pure-control-group
               %label{:for => "max"} Max
@@ -33,3 +34,20 @@
               = p["name"]
               %a{:href => "/admin/edit/#{event['id']}/remove/#{p['id']}"}
                 Fjern
+
+%script{:src => "/js/moment-with-locales.js"}
+%script{:src => "/js/pikaday.js"}
+:javascript
+  var picker = new Pikaday({
+      field: document.getElementById('date'),
+      format: 'DD.MM.YYYY',
+      firstDay: 1,
+      showWeekNumber: true,
+      i18n: {
+          previousMonth : 'Forrige m&aring;ned',
+          nextMonth     : 'Neste m&aring;ned',
+          months        : ['Januar','Februar','Mars','April','Mai','Juni','Juli','August','September','Oktober','November','Desember'],
+          weekdays      : ['S&oslash;ndag','Mandag','Tirsdag','Onsdag','Torsdag','Fredag','L&oslash;rdag'],
+          weekdaysShort : ['S&oslash;n','Man','Tir','Ons','Tor','Fre','L&oslash;r']
+        },
+    });

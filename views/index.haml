@@ -9,12 +9,15 @@
     .pure-g
       - get_future_events.each do | key, value |
         .pure-u-1.pure-u-md-1-3.l-box
-          - date = value["date"]
+          - date = value["date"].strftime('%d.%m.%Y')
+          - time = value["date"].strftime('%H:%M')
           - max = value["max"]
           - participants = value["participating"]
           - id = value["id"]
           %p
             Dato: #{date}
+            %br
+            Klokkeslett: #{time}
             %br
             Plasser: #{participants.size}/#{max}
             %br

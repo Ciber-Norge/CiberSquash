@@ -7,26 +7,34 @@ def get_event(id)
 end
 
 def add_event!(date)
+  date = convert_date(date) unless date.is_a? DateTime
   add_event_to_cloudant(generate_event(date))
+end
+
+def convert_date(date)
+  DateTime.parse(date + '-18:00', '%d.%m.%Y-%H:%M')
 end
 
 def get_events
   # no cach yet
   # store it globally and nil if 
   # it is updated, or just update it?
-  get_events_from_cloudant
+  events = get_events_from_cloudant
+  events.each do | key, value |
+    date = value["date"]
+    if date then
+      value["date"] = DateTime.parse(date)
+    end
+  end
+  events
 end
 
 def get_future_events
-  now = Time.now()
+  now = DateTime.now()
   futureEvents = {}
   events = get_events
   events.each do | key, value |
-    date = value["date"].split(/\./)
-    eventTime = Time.local(date[2], date[1], date[0])
-    if eventTime.year >= now.year\
-      and ((eventTime.month == now.month and eventTime.day >= now.day)\
-              or eventTime.month > now.month) then
+    if value["date"] >= now then
       futureEvents[key] = value
     end
   end
@@ -41,7 +49,7 @@ end
 def generate_event(date)
   {
     id: SecureRandom.uuid,
-    date: date,
+    date: date.to_s,
     max: 7,
     participating: [],
     scores: []

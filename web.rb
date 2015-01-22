@@ -163,7 +163,7 @@ post '/admin/edit/:id' do | id |
   date = params[:date]
   
   if correct_date? date then
-    event["date"] = date
+    event["date"] = convert_date date
   end
 
   update_event event

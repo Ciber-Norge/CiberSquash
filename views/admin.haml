@@ -20,7 +20,7 @@
         %fieldset
           %legend Administrer eventer
           - get_events.each do | key, value |
-            - date = value["date"]
+            - date = value["date"].strftime('%d.%m.%Y')
             - max = value["max"]
             - participants = value["participating"]
             - id = value["id"]
