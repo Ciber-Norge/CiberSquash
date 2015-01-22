@@ -50,7 +50,7 @@ def generate_event(date)
   {
     id: SecureRandom.uuid,
     date: date.to_s,
-    max: 7,
+    max: 9,
     participating: [],
     scores: []
   }
