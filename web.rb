@@ -195,7 +195,7 @@ get '/auth/:provider/callback' do
     # save or update user...keep that info fresh!
     authJson["info"]["id"] = authJson["uid"]
     save_user(session[:uid], authJson["info"])
-    add_user_info session[:uid]
+    init_user_info session[:uid]
     session[:user] = authJson["info"] # always use latest
     redirect '/'
   rescue

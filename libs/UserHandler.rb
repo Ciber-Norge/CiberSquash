@@ -34,12 +34,19 @@ def get_user_first_name(uid)
 end
 
 # info
+def init_user_info(uid)
+  info = get_user_info_from_cloudant(uid) || add_user_info(uid)
+  session[:info] = info
+end
+
 def get_user_info(uid)
-  get_user_info_from_cloudant uid
+  session[:info] || get_user_info_from_cloudant(uid)
 end
 
 def add_user_info(uid)
-  save_user_info_to_cloudant uid, {:racket => "", :scores => []}
+  info = {:racket => "", :scores => []}
+  save_user_info_to_cloudant uid, info
+  info
 end
 
 def save_user_info(uid, info)
