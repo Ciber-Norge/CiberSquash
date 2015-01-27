@@ -29,3 +29,13 @@ body {
 ul li a {
   text-decoration: none;
 }
+@media only screen and (max-width: 1026px) { 
+  .map { 
+    display: none; 
+  } 
+}
+#map-canvas {
+  width: auto;
+  height: 400px;
+  background-color: #CCC;
+}
