@@ -118,7 +118,7 @@ post '/resultater/:id' do
     save_advance_score_to_event id, params["player1"], params["score1"], params["player2"], params["score2"]
   end
 
-  haml :resultat, :locals => { :event => get_event(id)}
+  redirect '/resultater/' + id
 end
 
 # admin
