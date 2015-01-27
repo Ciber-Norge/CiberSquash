@@ -80,14 +80,7 @@
           %br
 
       .pure-u-1.pure-u-md-1-3.l-box
-        %ol
-          - event["participating"].each do | p |
-            %li
-              - if p["image"]
-                %img{:src => p["image"], :alt => "Profile of #{p['name']}"}
-              - elsif p["email"]
-                - md5 = Digest::MD5.hexdigest(p["email"].strip.downcase)
-                %img{:src => "http://www.gravatar.com/avatar/#{md5}", :alt => "Profile of #{p['name']}"}
+        = haml :"templates/show_participants", :locals => {:participants => event["participating"]}
 
     :javascript
       function simpleScoring() {
