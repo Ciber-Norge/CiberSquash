@@ -39,3 +39,43 @@ def remove_score_from_event(id, sid)
   
   update_event event
 end
+
+def calculate_all_scores()
+  events = get_events
+  scores = {}
+  events.each do | key, event |
+    event["scores"].each do | score |
+      # simple
+      if score.has_key? "winner" then
+        if score["winner"].match "winner1" then
+          if scores.has_key? score["player1"] then
+            scores[score["player1"]] = scores[score["player1"]] + 1
+          else
+            scores[score["player1"]] = 1
+          end
+        else
+          if scores.has_key? score["player2"] then
+            scores[score["player2"]] = scores[score["player2"]] + 1
+          else
+            scores[score["player2"]] = 1
+          end
+        end
+      else
+        if score["score1"].to_i > score["score2"].to_i then
+          if scores.has_key? score["player1"] then
+            scores[score["player1"]] = scores[score["player1"]] + 1
+          else
+            scores[score["player1"]] = 1
+          end
+        else
+          if scores.has_key? score["player2"] then
+            scores[score["player2"]] = scores[score["player2"]] + 1
+          else
+            scores[score["player2"]] = 1
+          end
+        end
+      end
+    end
+  end
+  scores
+end
