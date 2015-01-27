@@ -44,12 +44,15 @@
             Plasser: #{participants.size}/#{max}
             %br
             %form.pure-form.pure-form-aligned{:action => "/blimed?id=#{id}", :method => "POST"}
-              - unless registered? participants, get_name
+              - if registered? participants, get_name
+                %button.button-error.pure-button{:name => "leave", :type => "submit"}
+                  Meld av
+              - elsif is_logged_in?
                 %button.button-success.pure-button{:name => "join", :type => "submit"}
                   Bli med
               - else
-                %button.button-error.pure-button{:name => "leave", :type => "submit"}
-                  Meld av
+                %button.button-error.pure-button{:name => "full", :type => "", :disabled => true}
+                  Fullt
             %br
             %button.button-secondary.pure-button{:onclick => "toggleParticipators('#{key}')"}
               Se påmeldte
