@@ -47,12 +47,12 @@
               - if registered? participants, get_name
                 %button.button-error.pure-button{:name => "leave", :type => "submit"}
                   Meld av
-              - elsif is_logged_in?
-                %button.button-success.pure-button{:name => "join", :type => "submit"}
-                  Bli med
-              - else
+              - elsif event_full? value
                 %button.button-error.pure-button{:name => "full", :type => "", :disabled => true}
                   Fullt
+              - else
+                %button.button-success.pure-button{:name => "join", :type => "submit"}
+                  Bli med
             %br
             %button.button-secondary.pure-button{:onclick => "toggleParticipators('#{key}')"}
               Se påmeldte
