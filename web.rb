@@ -121,6 +121,11 @@ post '/resultater/:id' do
   redirect '/resultater/' + id
 end
 
+get '/logout' do
+  session.clear
+  redirect '/'
+end
+
 # admin
 get '/admin' do
   haml :admin
