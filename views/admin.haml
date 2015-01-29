@@ -11,7 +11,7 @@
       .pure-u-1.pure-u-md-1-3.l-box
         %fieldset
           %legend Legg til ny event
-          %form.pure-form.pure-form-aligned{:action => "/admin", :method => "POST"}
+          %form.pure-form.pure-form-aligned{:action => "/admin/event/add", :method => "GET"}
             %label{:for => "date"} Dato
             %input#date{:name => "date", :placeholder => "05.11.2014", :type => "text"}
             %button.pure-button.pure-button-primary{:type => "submit"} Legg til
