@@ -3,16 +3,24 @@ GEM
   specs:
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    gmail (0.5.0)
+      gmail_xoauth (>= 0.3.0)
+      mail (>= 2.2.1)
+    gmail_xoauth (0.4.1)
+      oauth (>= 0.3.6)
     haml (4.0.6)
       tilt
     hashie (3.3.2)
     json (1.8.2)
     jwt (1.2.0)
+    mail (2.6.3)
+      mime-types (>= 1.16, < 3)
     mime-types (2.4.3)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     netrc (0.10.2)
+    oauth (0.4.7)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0)
@@ -48,6 +56,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  gmail (~> 0.5.0)
   haml (~> 4.0)
   json (~> 1.8)
   omniauth-facebook
