@@ -218,3 +218,12 @@ get '/auth/failure' do
     redirect '/login'
   end
 end
+
+# Errors
+not_found do
+  haml :"404"
+end
+
+error do
+  haml :errors
+end

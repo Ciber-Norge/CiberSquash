@@ -76,7 +76,7 @@ def get_user_info(uid)
 end
 
 def add_user_info(uid)
-  info = {:racket => "", :scores => []}
+  info = {:racket => ""}
   save_user_info_to_cloudant uid, info
   info
 end
