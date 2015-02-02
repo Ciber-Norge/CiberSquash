@@ -4,6 +4,7 @@ require_relative 'web.rb'
 require 'gmail'
 
 SCHEDULER_DAY = ENV['SCHEDULER_DAY'] || "monday"
+SQUASH_DAY = ENV['SQUASH_DAY'] || "wednesday"
 
 unless GMAIL_USERNAME = ENV['GMAIL_USERNAME']
   raise "You must specify the GMAIL_USERNAME env variable"
@@ -22,6 +23,9 @@ def start_task
   p "Running scheduler at #{now}"
   if now.send(SCHEDULER_DAY + "?") then
     p "It's #{SCHEDULER_DAY}, time to make an event"
+    while not now.send(SQUASH_DAY + "?") do
+      now = now + 1
+    end
     add_event! DateTime.new(now.year, now.month, now.day, 18, 0, 0, 0)
     p "Sending e-mails to users"
     send_email()
