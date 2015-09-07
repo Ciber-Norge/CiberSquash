@@ -7,7 +7,7 @@ require 'net/https'
 require 'uri'
 require 'json'
 
-SCHEDULER_DAY = ENV['SCHEDULER_DAY'] || "tuesday"
+SCHEDULER_DAY = ENV['SCHEDULER_DAY'] || "monday"
 SPORTS_DAY = ENV['SPORTS_DAY'] || "wednesday"
 SEND_EMAIL = ENV['SEND_EMAIL'] || false
 
