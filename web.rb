@@ -127,10 +127,6 @@ get '/logout' do
 end
 
 # admin
-get '/admin' do
-  haml :admin
-end
-
 get '/admin/event/add/:date' do
   date = params[:date]
   if correct_date? date then
@@ -188,6 +184,10 @@ end
 post '/admin/delete/:id' do | id |
   remove_event! id
   redirect '/admin'
+end
+
+get '/admin' do
+  haml :admin
 end
 
 # Sign in
