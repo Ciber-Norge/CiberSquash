@@ -58,10 +58,10 @@ def post_to_slack
     "username": "SquashBot",
     "attachments": [
                     {
-                      "fallback": "Det er squash snart! <http://cibersquash.herokuapp.com/|Meld dere på!>",
+                      "fallback": "Det er squash snart! <https://cibersquash.herokuapp.com/|Meld dere på!>",
                       "color": "good",
                       "title": "Tid for squash!",
-                      "text": "God morgen alle squashere!\nNy event er lagt ut på <http://cibersquash.herokuapp.com/|CiberSquash>. Har du lyst å være med og spille bør du melde deg på før det blir fullt!\nHvis du ikke har mulighet til å komme etter at du har meldt deg på, så må du melde deg av før lunsj dagen før, ellers risikerer du å få en prikk. Les mer om prikkesystemet vårt på nettsiden, eller snakk med Njaal Gjerde.",
+                      "text": "God morgen alle squashere!\nNy event er lagt ut på <https://cibersquash.herokuapp.com/|CiberSquash>. Har du lyst å være med og spille bør du melde deg på før det blir fullt!\nHvis du ikke har mulighet til å komme etter at du har meldt deg på, så må du melde deg av før lunsj dagen før, ellers risikerer du å få en prikk. Les mer om prikkesystemet vårt på nettsiden, eller snakk med Njaal Gjerde.",
                       "thumb_url": "http://bbsimg.ngfiles.com/1/23310000/ngbbs4e7909cfd02f8.jpg"
                     }
                    ]}.to_json
