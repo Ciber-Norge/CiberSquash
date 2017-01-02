@@ -35,7 +35,7 @@ def start_task
     while not now.send(SPORTS_DAY + "?") do
       now = now + 1
     end
-    add_event! DateTime.new(now.year, now.month, now.day, 18, 0, 0, 0)
+    add_event! DateTime.new(now.year, now.month, now.day, 17, 0, 0, 0)
     if SEND_EMAIL
       p "Sending e-mails to users"
       send_email()
