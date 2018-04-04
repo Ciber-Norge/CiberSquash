@@ -1,6 +1,6 @@
 class CiberSquash < Sinatra::Base
   register(Sinatra::Namespace)
-  enable(:sessions)
+  enable(:sessions, expire_after: 2592000)
   use Rack::Session::Cookie, secret: ENV['RACK_COOKIE_SECRET']
 
   use OmniAuth::Builder do
