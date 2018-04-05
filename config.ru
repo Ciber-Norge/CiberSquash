@@ -4,6 +4,7 @@ require 'omniauth-google-oauth2'
 require 'omniauth-facebook'
 require 'sinatra/base'
 require 'sinatra/namespace'
+require 'sysrandom/securerandom'
 
 unless GOOGLE_SECRET = ENV['GOOGLE_SECRET']
   raise "You must specify the GOOGLE_SECRET env variable"

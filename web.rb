@@ -2,7 +2,8 @@ class CiberSquash < Sinatra::Base
   register(Sinatra::Namespace)
   enable(:sessions)
   set(:sessions, expire_after: 2592000)
-  use Rack::Session::Cookie, secret: ENV['RACK_COOKIE_SECRET']
+  set(:session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) })
+
 
   use OmniAuth::Builder do
     provider(:google_oauth2, ENV['GOOGLE_KEY'], ENV['GOOGLE_SECRET'], {})
