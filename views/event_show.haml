@@ -1,0 +1,33 @@
+- event = locals[:event]
+- player = Player.find(uid: session[:uid])
+%p
+  %strong Dato:
+  = event.date.strftime('%d.%m.%Y')
+  %br
+  %strong
+    Klokkeslett:
+  = event.date.strftime('%H:%M')
+  %br
+  %strong
+    Plasser:
+  = "#{event.players.size}/#{event.max_players}"
+  %br
+  - if logged_in?
+    - if event.full?
+      %button.button-error.pure-button{disabled: true}
+        Fullt
+    - if event.participating?(player)
+      %button.pure-button.button-success{onClick: "leave_event('#{event.id}');"}
+        Meld av
+    - elsif not event.full?
+      %button.pure-button.button-success{onClick: "join_event('#{event.id}');"}
+        Bli med
+  -if event.players.size > 0
+    %button.button-secondary.pure-button{onClick: "toggleParticipants('#{event.id}')"}
+      Se påmeldte
+    %ul
+      .participants{id: "participants-#{event.id}", style: "display: none;"}
+        - event.players.each do |player|
+          %li{style: "list-style-type: none;"}
+            = haml(:_avatar, locals: {player: player})
+            = player.name
