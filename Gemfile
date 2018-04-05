@@ -11,10 +11,10 @@ gem 'gmail', '~> 0.6.0'
 gem 'puma', '~> 3.11', '>= 3.11.3'
 gem 'pg', '~> 1.0'
 gem 'sequel', '~> 5.6'
+gem 'sysrandom', '~> 1.0', '>= 1.0.5'
 
 group :development, :test do
   gem 'dotenv', '~> 2.2', '>= 2.2.1'
   gem 'foreman', '~> 0.84.0'
   gem 'rake', '~> 12.3'
-  gem 'sysrandom', '~> 1.0', '>= 1.0.5'
 end
